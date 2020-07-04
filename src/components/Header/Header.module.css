@@ -1,0 +1,24 @@
+.header {
+  height: 70px;
+  background-color: bisque;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+}
+
+.wrapper {
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px 0 15px;
+  max-width: 960px;
+  height: inherit;
+}
+
+.logo {
+  background-color: black;
+  color: white;
+  padding: 7px;
+  border-radius: 7px;
+}
