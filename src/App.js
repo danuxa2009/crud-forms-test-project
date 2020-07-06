@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 import Header from "./components/Header/Header";
 import ContainerForItems from "./components/ContainerForItems/ContainerForItems";
+import Modal from "./components/Modal/Modal";
+import { connect } from "react-redux";
 
-function App() {
+const App = ({ showModal }) => {
   return (
-    <div>
+    <Fragment>
       <Header />
+      {showModal && <Modal />}
       <ContainerForItems />
-    </div>
+    </Fragment>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => ({
+  showModal: state.reducer.showModal,
+});
+
+export default connect(mapStateToProps)(App);

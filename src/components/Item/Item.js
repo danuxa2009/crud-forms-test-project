@@ -4,7 +4,7 @@ import styles from "../Item/Item.module.css";
 const Item = (props) => {
   return (
     <div className={styles.item}>
-      <img width="250" src={props.imageSrc} />
+      <img alt="Item" width="250" src={props.imageSrc} />
       <h2>HI</h2>
       <p>300</p>
       <p>
