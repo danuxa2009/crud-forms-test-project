@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../AddItemButton/AddItemButton.module.css";
-import Modal from "../Modal/Modal";
 import { connect } from "react-redux";
 import { MODAL_IS_OPEN } from "../../store/constans/constants";
 

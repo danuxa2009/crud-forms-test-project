@@ -1,7 +1,12 @@
-import { MODAL_IS_OPEN, MODAL_IS_CLOSED } from "../constans/constants";
+import {
+  MODAL_IS_OPEN,
+  MODAL_IS_CLOSED,
+  ADD_ITEM_TO_STORE,
+} from "../constans/constants";
 
 const initialState = {
   showModal: false,
+  items: [],
 };
 
 export const reducer = (state = initialState, action) => {
@@ -16,6 +21,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         showModal: false,
+      };
+    }
+    case ADD_ITEM_TO_STORE: {
+      return {
+        ...state,
+        items: [...state.items, action.payload],
       };
     }
     default: {
