@@ -3,8 +3,10 @@ import styles from "../ContainerForItems/ContainerForItems.module.css";
 import Item from "../Item/Item";
 
 const ContainerForItems = ({ items }) => {
-  let itemElemens = items.map((item) => (
+  console.log(items);
+  const itemElemens = items.map((item) => (
     <Item
+      key={item.id}
       name={item.name}
       image={item.image}
       title={item.title}

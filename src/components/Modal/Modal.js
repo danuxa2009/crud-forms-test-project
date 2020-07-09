@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "../Modal/Modal.module.css";
 import { Field, reduxForm } from "redux-form";
-import { connect } from "react-redux";
-import { MODAL_IS_CLOSED } from "../../store/constans/constants";
 
 const validate = ({ name }) => {
   const errors = {};
@@ -20,37 +18,54 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} placeholder={label} type={type} />
+      <input {...input} type={type} />
       {touched && error && <p>{error}</p>}
     </div>
   </div>
 );
 
-let Modal = ({ handleSubmit, closeModal }) => {
+const idField = ({ type, input, label }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input disabled {...input} type={type} value={Date.now()} />
+    </div>
+  </div>
+);
+
+let Modal = ({ handleSubmit, pristine, submitting, toggleModalHandler }) => {
   return (
     <div className={styles.outer}>
       <div className={styles.modalBody}>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="name">Name</label>
-            <Field name="name" component={renderField} type="text" />
-          </div>
-          <div>
-            <label htmlFor="title">Title</label>
-            <Field name="title" component={renderField} type="text" />
-          </div>
-          <div>
-            <label htmlFor="description">Description</label>
-            <Field name="description" component={renderField} type="text" />
-          </div>
-          <div>
-            <label htmlFor="image">Image</label>
-            <Field name="image" component={renderField} type="text" />
-          </div>
-          <button className={styles.button} type="submit">
+          <Field label="Name" name="name" component={renderField} type="text" />
+          <Field
+            label="Title"
+            name="title"
+            component={renderField}
+            type="text"
+          />
+          <Field
+            label="Description"
+            name="description"
+            component={renderField}
+            type="text"
+          />
+          <Field
+            label="Image URL"
+            name="image"
+            component={renderField}
+            type="text"
+          />
+          <Field label="ID" name="id" component={idField} type="text" />
+          <button
+            disabled={pristine || submitting}
+            className={styles.button}
+            type="submit"
+          >
             Add
           </button>
-          <button onClick={closeModal} className={styles.button}>
+          <button onClick={toggleModalHandler} className={styles.button}>
             Close
           </button>
         </form>
@@ -64,13 +79,4 @@ Modal = reduxForm({
   validate,
 })(Modal);
 
-// const mapStateToProps = (state) => ({
-//   dataItems: state.reducer.items,
-// });
-
-const mapDispatchToProps = (dispatch) => ({
-  closeModal: () => dispatch({ type: MODAL_IS_CLOSED }),
-  // takeItem: () => dispatch({type:})
-});
-
-export default connect(null, mapDispatchToProps)(Modal);
+export default Modal;

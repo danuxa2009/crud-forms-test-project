@@ -1,16 +1,38 @@
-import React from "react";
-import styles from "../Item/Item.module.css";
+import React, { useState } from "react";
+import styles from "../ItemBody/ItemBody.module.css";
+import ItemBody from "../ItemBody/ItemBody";
+import OnEditItemBody from "../OnEditItemBody/OnEditItemBody";
+import { connect } from "react-redux";
+import { editItem } from "../../store/actions/actions";
 
-const Item = ({ image, name, title, description }) => {
+const Item = ({ ...props }) => {
+  const [isEditing, setIsEditing] = useState(false);
+
+  const onEditToggleHandler = () => {
+    setIsEditing(!isEditing);
+  };
+  const submitEditData = (values) => {
+    editItem(values);
+    onEditToggleHandler();
+  };
+
   return (
     <div className={styles.item}>
-      <img alt="Item" width="250" src={image} />
-      <h2>{name}</h2>
-      <p>{title}</p>
-      <p>{description}</p>
-      <button className={styles.button}>EDIT</button>
+      {isEditing ? (
+        <OnEditItemBody onSubmit={submitEditData} />
+      ) : (
+        <ItemBody onEditToggleHandler={onEditToggleHandler} {...props} />
+      )}
     </div>
   );
 };
 
-export default Item;
+const mapStateToProps = (state) => ({
+  dataItems: state.reducer.items,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  editItem: (payload) => dispatch(editItem(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
