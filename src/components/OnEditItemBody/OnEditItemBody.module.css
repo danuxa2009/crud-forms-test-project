@@ -1,3 +1,7 @@
 .body {
   background-color: cadetblue;
 }
+
+.idField {
+  display: none;
+}

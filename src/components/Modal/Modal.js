@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Modal/Modal.module.css";
 import { Field, reduxForm } from "redux-form";
-import validate from "./validate";
+import { connect } from "react-redux";
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -13,7 +13,29 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 );
 
-let Modal = ({ handleSubmit, pristine, submitting, toggleModalHandler }) => {
+const validate = ({ name }, props) => {
+  let names = [];
+  const findAndPushUsedNames = () => {
+    for (let item of props.usedNames) {
+      const alreadyExistingName = item["name"];
+      names.push(alreadyExistingName);
+    }
+  };
+  const errors = {};
+  findAndPushUsedNames();
+  if (!name) {
+    errors.name = `Required`;
+  } else if (names.includes(name)) {
+    errors.name = `'${name}' is already exist`;
+  } else if (name.length > 20) {
+    errors.name = "Must be 20 characters or less";
+  } else if (name.trim() === "") {
+    errors.name = "That's an error, enter something please";
+  }
+  return errors;
+};
+
+let Modal = ({ handleSubmit, toggleModalHandler }) => {
   return (
     <div className={styles.outer}>
       <div className={styles.modalBody}>
@@ -37,11 +59,7 @@ let Modal = ({ handleSubmit, pristine, submitting, toggleModalHandler }) => {
             component={renderField}
             type="text"
           />
-          <button
-            disabled={pristine || submitting}
-            className={styles.button}
-            type="submit"
-          >
+          <button className={styles.button} type="submit">
             Add
           </button>
           <button onClick={toggleModalHandler} className={styles.button}>
@@ -56,7 +74,10 @@ let Modal = ({ handleSubmit, pristine, submitting, toggleModalHandler }) => {
 Modal = reduxForm({
   form: "item_form",
   validate,
-  enableReinitialize: true,
 })(Modal);
 
-export default Modal;
+const mapStateToProps = (state) => ({
+  usedNames: state.reducer.items,
+});
+
+export default connect(mapStateToProps)(Modal);

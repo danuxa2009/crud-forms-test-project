@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../OnEditItemBody/OnEditItemBody.module.css";
-import validate from "../Modal/validate";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { deleteItem } from "../../store/actions/actions";
@@ -15,20 +14,17 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 );
 
-let OnEditItemBody = ({
-  handleSubmit,
-  initialize,
-  name,
-  title,
-  description,
-  image,
-  id,
-  deleteItem,
-}) => {
+const idField = ({ input, type }) => (
+  <div>
+    <input className={styles.idField} {...input} type={type} />
+  </div>
+);
+
+let OnEditItemBody = ({ handleSubmit, id, deleteItem }) => {
   const onDeleteBtnHandler = (id) => {
     deleteItem(id);
   };
-  initialize({ name, title, description, image });
+
   return (
     <div className={styles.body}>
       <form onSubmit={handleSubmit}>
@@ -46,6 +42,7 @@ let OnEditItemBody = ({
           component={renderField}
           type="text"
         />
+        <Field name="id" component={idField} />
         <button type="submit">SAVE</button>
         <button onClick={() => onDeleteBtnHandler(id)}>DELETE</button>
       </form>
@@ -56,12 +53,19 @@ let OnEditItemBody = ({
 OnEditItemBody = reduxForm({
   form: "editForm",
   enableReinitialize: true,
-  validate,
 })(OnEditItemBody);
 
-const mapStateToProps = (state, props) => ({});
+OnEditItemBody = connect((state, props) => ({
+  initialValues: {
+    name: props.name,
+    id: props.id,
+    title: props.title,
+    image: props.image,
+    description: props.description,
+  },
+}))(OnEditItemBody);
 
 const mapDispatchToProps = (dispatch) => ({
   deleteItem: (payload) => dispatch(deleteItem(payload)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(OnEditItemBody);
+export default connect(null, mapDispatchToProps)(OnEditItemBody);

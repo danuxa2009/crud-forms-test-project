@@ -1,7 +1,6 @@
 import {
   ADD_ITEM_TO_STORE,
   EDIT_ITEM,
-  GET_ID,
   DELETE_ITEM,
 } from "../constans/constants";
 
@@ -16,11 +15,6 @@ export const addItemToStore = (payload) => ({
 
 export const editItem = (payload) => ({
   type: EDIT_ITEM,
-  payload,
-});
-
-export const getId = (payload) => ({
-  type: GET_ID,
   payload,
 });
 

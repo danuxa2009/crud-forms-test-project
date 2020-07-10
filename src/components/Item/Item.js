@@ -5,7 +5,7 @@ import OnEditItemBody from "../OnEditItemBody/OnEditItemBody";
 import { connect } from "react-redux";
 import { editItem } from "../../store/actions/actions";
 
-const Item = ({ ...props }) => {
+const Item = ({ editItem, ...props }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const onEditToggleHandler = () => {
@@ -28,7 +28,7 @@ const Item = ({ ...props }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  editItem: (payload) => dispatch(editItem(payload)), // для передачи edit формы
+  editItem: (payload) => dispatch(editItem(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Item);

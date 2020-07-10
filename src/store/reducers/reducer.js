@@ -19,7 +19,17 @@ export const reducer = (state = initialState, action) => {
     case EDIT_ITEM: {
       return {
         ...state,
-        items: [action.payload, state.items],
+        items: state.items.map((item) =>
+          item.id === action.payload.id
+            ? {
+                ...item,
+                name: action.payload.name,
+                title: action.payload.title,
+                image: action.payload.image,
+                description: action.payload.description,
+              }
+            : item
+        ),
       };
     }
     case DELETE_ITEM: {
