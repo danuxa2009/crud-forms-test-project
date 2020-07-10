@@ -1,4 +1,8 @@
-import { ADD_ITEM_TO_STORE, EDIT_ITEM } from "../constans/constants";
+import {
+  ADD_ITEM_TO_STORE,
+  EDIT_ITEM,
+  DELETE_ITEM,
+} from "../constans/constants";
 
 const initialState = {
   items: [],
@@ -15,7 +19,13 @@ export const reducer = (state = initialState, action) => {
     case EDIT_ITEM: {
       return {
         ...state,
-        items: [...state, action.payload],
+        items: [action.payload, state.items],
+      };
+    }
+    case DELETE_ITEM: {
+      return {
+        ...state,
+        items: state.items.filter((item) => item.id !== action.payload),
       };
     }
     default: {

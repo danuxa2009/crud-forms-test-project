@@ -1,9 +1,16 @@
 import React from "react";
 import styles from "../Item/Item.module.css";
 
-const ItemBody = ({ image, name, title, description, onEditToggleHandler }) => {
+const ItemBody = ({
+  id,
+  image,
+  name,
+  title,
+  description,
+  onEditToggleHandler,
+}) => {
   return (
-    <div className={styles.item}>
+    <div id={id} className={styles.item}>
       <img alt="Item" width="250" src={image} />
       <h2>{name}</h2>
       <p>{title}</p>

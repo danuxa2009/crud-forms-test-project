@@ -1,40 +1,53 @@
 import React from "react";
 import styles from "../OnEditItemBody/OnEditItemBody.module.css";
+import validate from "../Modal/validate";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { deleteItem } from "../../store/actions/actions";
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} placeholder={label} type={type} />
+      <input {...input} type={type} />
       {touched && error && <p>{error}</p>}
     </div>
   </div>
 );
 
-let OnEditItemBody = ({ handleSubmit }) => {
+let OnEditItemBody = ({
+  handleSubmit,
+  initialize,
+  name,
+  title,
+  description,
+  image,
+  id,
+  deleteItem,
+}) => {
+  const onDeleteBtnHandler = (id) => {
+    deleteItem(id);
+  };
+  initialize({ name, title, description, image });
   return (
     <div className={styles.body}>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
-          <Field name="name" component={renderField} type="text" />
-        </div>
-        <div>
-          <label htmlFor="title">Title</label>
-          <Field name="title" component={renderField} type="text" />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <Field name="description" component={renderField} type="text" />
-        </div>
-        <div>
-          <label htmlFor="image">Image URL</label>
-          <Field name="image" component={renderField} type="text" />
-        </div>
+        <Field label="Name" name="name" component={renderField} type="text" />
+        <Field label="Title" name="title" component={renderField} type="text" />
+        <Field
+          label="Description"
+          name="description"
+          component={renderField}
+          type="text"
+        />
+        <Field
+          label="Image URL"
+          name="image"
+          component={renderField}
+          type="text"
+        />
         <button type="submit">SAVE</button>
-        <button>DELETE</button>
+        <button onClick={() => onDeleteBtnHandler(id)}>DELETE</button>
       </form>
     </div>
   );
@@ -43,10 +56,12 @@ let OnEditItemBody = ({ handleSubmit }) => {
 OnEditItemBody = reduxForm({
   form: "editForm",
   enableReinitialize: true,
+  validate,
 })(OnEditItemBody);
 
-const mapStateToProps = (state) => ({
-  initialValues: state.reducer.items[0],
-});
+const mapStateToProps = (state, props) => ({});
 
-export default connect(mapStateToProps)(OnEditItemBody);
+const mapDispatchToProps = (dispatch) => ({
+  deleteItem: (payload) => dispatch(deleteItem(payload)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(OnEditItemBody);

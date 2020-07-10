@@ -11,15 +11,15 @@ const Item = ({ ...props }) => {
   const onEditToggleHandler = () => {
     setIsEditing(!isEditing);
   };
+
   const submitEditData = (values) => {
     editItem(values);
     onEditToggleHandler();
   };
-
   return (
     <div className={styles.item}>
       {isEditing ? (
-        <OnEditItemBody onSubmit={submitEditData} />
+        <OnEditItemBody onSubmit={submitEditData} {...props} />
       ) : (
         <ItemBody onEditToggleHandler={onEditToggleHandler} {...props} />
       )}
@@ -27,12 +27,8 @@ const Item = ({ ...props }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  dataItems: state.reducer.items,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  editItem: (payload) => dispatch(editItem(payload)),
+  editItem: (payload) => dispatch(editItem(payload)), // для передачи edit формы
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connect(null, mapDispatchToProps)(Item);
