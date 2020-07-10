@@ -14,7 +14,7 @@ const ContainerForItems = ({ items }) => {
     />
   ));
   return (
-    <section className={styles.body}>
+    <section>
       <div className={styles.inner}>{itemElemens}</div>
     </section>
   );

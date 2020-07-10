@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../ItemBody/ItemBody.module.css";
+import styles from "../Item/Item.module.css";
 import ItemBody from "../ItemBody/ItemBody";
 import OnEditItemBody from "../OnEditItemBody/OnEditItemBody";
 import { connect } from "react-redux";

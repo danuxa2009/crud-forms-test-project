@@ -4,16 +4,22 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <label>{label}</label>
+  <div className={styles.fields}>
+    <label className={styles.labels}>{label}</label>
     <div>
-      <input {...input} type={type} />
-      {touched && error && <p>{error}</p>}
+      {touched && error ? (
+        <div>
+          <input className={styles.inputs_error} {...input} type={type} />
+          <p className={styles.error}>{error}</p>
+        </div>
+      ) : (
+        <input className={styles.inputs} {...input} type={type} />
+      )}
     </div>
   </div>
 );
 
-const validate = ({ name }, props) => {
+const validate = ({ name, title, description, image }, props) => {
   let names = [];
   const findAndPushUsedNames = () => {
     for (let item of props.usedNames) {
@@ -23,14 +29,17 @@ const validate = ({ name }, props) => {
   };
   const errors = {};
   findAndPushUsedNames();
-  if (!name) {
-    errors.name = `Required`;
+  if ((!name, !title, !description, !image)) {
+    errors.name = "All fields are required";
+    errors.title = " ";
+    errors.description = " ";
+    errors.image = " ";
   } else if (names.includes(name)) {
     errors.name = `'${name}' is already exist`;
   } else if (name.length > 20) {
-    errors.name = "Must be 20 characters or less";
-  } else if (name.trim() === "") {
-    errors.name = "That's an error, enter something please";
+    errors.name = "Enter 20 characters or less";
+  } else if (description.length > 150) {
+    errors.description = "Enter 150 characters or less";
   }
   return errors;
 };
@@ -39,7 +48,7 @@ let Modal = ({ handleSubmit, toggleModalHandler }) => {
   return (
     <div className={styles.outer}>
       <div className={styles.modalBody}>
-        <form onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <Field label="Name" name="name" component={renderField} type="text" />
           <Field
             label="Title"
@@ -59,12 +68,14 @@ let Modal = ({ handleSubmit, toggleModalHandler }) => {
             component={renderField}
             type="text"
           />
-          <button className={styles.button} type="submit">
-            Add
-          </button>
-          <button onClick={toggleModalHandler} className={styles.button}>
-            Close
-          </button>
+          <div className={styles.buttons}>
+            <button className={styles.button} type="submit">
+              Add
+            </button>
+            <button onClick={toggleModalHandler} className={styles.button}>
+              Close
+            </button>
+          </div>
         </form>
       </div>
     </div>

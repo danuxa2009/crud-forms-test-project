@@ -3,12 +3,6 @@
 }
 
 .item {
-  padding: 0.5rem;
   margin: 1rem;
-  background-color: brown;
-  width: 30%;
-}
-
-.button {
-  width: 100%;
+  width: 350px;
 }

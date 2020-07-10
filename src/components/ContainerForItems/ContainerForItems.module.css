@@ -1,13 +1,12 @@
-.body {
-  background-color: #f2edd6;
-}
-
 .inner {
   margin: auto;
   width: 960px;
   height: 100%;
-  background-color: #c8cabf;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+.description {
+  width: 200px;
 }

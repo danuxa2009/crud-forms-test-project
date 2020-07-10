@@ -8,7 +8,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type={type} />
+      <input className={styles.inputs} {...input} type={type} />
       {touched && error && <p>{error}</p>}
     </div>
   </div>
@@ -20,7 +20,7 @@ const idField = ({ input, type }) => (
   </div>
 );
 
-let OnEditItemBody = ({ handleSubmit, id, deleteItem }) => {
+let OnEditItemBody = ({ handleSubmit, id, deleteItem, image }) => {
   const onDeleteBtnHandler = (id) => {
     deleteItem(id);
   };
@@ -28,23 +28,31 @@ let OnEditItemBody = ({ handleSubmit, id, deleteItem }) => {
   return (
     <div className={styles.body}>
       <form onSubmit={handleSubmit}>
-        <Field label="Name" name="name" component={renderField} type="text" />
-        <Field label="Title" name="title" component={renderField} type="text" />
-        <Field
-          label="Description"
-          name="description"
-          component={renderField}
-          type="text"
-        />
-        <Field
-          label="Image URL"
-          name="image"
-          component={renderField}
-          type="text"
-        />
-        <Field name="id" component={idField} />
-        <button type="submit">SAVE</button>
-        <button onClick={() => onDeleteBtnHandler(id)}>DELETE</button>
+        <img alt="Item" width="250" height="250" src={image} />
+        <div className={styles.formBody}>
+          <Field
+            label="Image URL"
+            name="image"
+            component={renderField}
+            type="text"
+          />
+          <Field label="Name" name="name" component={renderField} type="text" />
+          <Field
+            label="Title"
+            name="title"
+            component={renderField}
+            type="text"
+          />
+          <Field
+            label="Description"
+            name="description"
+            component={renderField}
+            type="text"
+          />
+          <Field name="id" component={idField} />
+          <button type="submit">SAVE</button>
+          <button onClick={() => onDeleteBtnHandler(id)}>DELETE</button>
+        </div>
       </form>
     </div>
   );
