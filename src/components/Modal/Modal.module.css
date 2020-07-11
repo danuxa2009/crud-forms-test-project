@@ -29,13 +29,12 @@
 .inputs {
   height: 35px;
 }
-.inputs_error {
+.inputsError {
   border: 2px solid crimson;
   height: 35px;
 }
 .error {
   height: 0px;
-  margin: 0.3rem;
 }
 .labels {
   margin: 5px;
@@ -50,5 +49,5 @@
   justify-content: space-between;
 }
 .buttons {
-  margin-top: 2.7rem;
+  margin-top: 1rem;
 }

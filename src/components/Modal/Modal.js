@@ -9,7 +9,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
     <div>
       {touched && error ? (
         <div>
-          <input className={styles.inputs_error} {...input} type={type} />
+          <input className={styles.inputsError} {...input} type={type} />
           <p className={styles.error}>{error}</p>
         </div>
       ) : (
@@ -21,25 +21,31 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 const validate = ({ name, title, description, image }, props) => {
   let names = [];
+  const errors = {};
   const findAndPushUsedNames = () => {
     for (let item of props.usedNames) {
       const alreadyExistingName = item["name"];
       names.push(alreadyExistingName);
     }
   };
-  const errors = {};
   findAndPushUsedNames();
-  if ((!name, !title, !description, !image)) {
+  if (!name) {
     errors.name = "All fields are required";
-    errors.title = " ";
-    errors.description = " ";
-    errors.image = " ";
   } else if (names.includes(name)) {
     errors.name = `'${name}' is already exist`;
   } else if (name.length > 20) {
     errors.name = "Enter 20 characters or less";
-  } else if (description.length > 150) {
-    errors.description = "Enter 150 characters or less";
+  }
+  if (!description) {
+    errors.description = " ";
+  } else if (description.length > 100) {
+    errors.description = "Enter 100 characters or less";
+  }
+  if (!image) {
+    errors.image = " ";
+  }
+  if (!title) {
+    errors.title = " ";
   }
   return errors;
 };
