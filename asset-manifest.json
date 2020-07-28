@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/crud-forms-test-project/static/css/main.be3039e4.chunk.css",
+    "main.js": "/crud-forms-test-project/static/js/main.e7bd56eb.chunk.js",
+    "main.js.map": "/crud-forms-test-project/static/js/main.e7bd56eb.chunk.js.map",
+    "runtime-main.js": "/crud-forms-test-project/static/js/runtime-main.48e430be.js",
+    "runtime-main.js.map": "/crud-forms-test-project/static/js/runtime-main.48e430be.js.map",
+    "static/js/2.4316b9c8.chunk.js": "/crud-forms-test-project/static/js/2.4316b9c8.chunk.js",
+    "static/js/2.4316b9c8.chunk.js.map": "/crud-forms-test-project/static/js/2.4316b9c8.chunk.js.map",
+    "index.html": "/crud-forms-test-project/index.html",
+    "precache-manifest.942357cb797e4ddc9c459e30359e93fd.js": "/crud-forms-test-project/precache-manifest.942357cb797e4ddc9c459e30359e93fd.js",
+    "service-worker.js": "/crud-forms-test-project/service-worker.js",
+    "static/css/main.be3039e4.chunk.css.map": "/crud-forms-test-project/static/css/main.be3039e4.chunk.css.map",
+    "static/js/2.4316b9c8.chunk.js.LICENSE.txt": "/crud-forms-test-project/static/js/2.4316b9c8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.48e430be.js",
+    "static/js/2.4316b9c8.chunk.js",
+    "static/css/main.be3039e4.chunk.css",
+    "static/js/main.e7bd56eb.chunk.js"
+  ]
+}
